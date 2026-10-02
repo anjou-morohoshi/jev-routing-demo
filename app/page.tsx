@@ -6,16 +6,21 @@ export default function Home() {
   const [text, setText] = useState("");
   const [result, setResult] = useState("");
 
-const judge = () => {
-  if (text.includes("配送")) {
-    setResult("物流");
-  } else if (text.includes("請求")) {
-    setResult("経理");
-  } else if (text.includes("パソコン")) {
-    setResult("情報システム");
-  } else {
-    setResult("判定不可");
-  }
+const judge = async () => {
+
+  const response = await fetch("/api/judge", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text,
+    }),
+  });
+
+  const data = await response.json();
+
+  setResult(data.department);
 };
 
   return (
