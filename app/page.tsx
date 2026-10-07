@@ -20,7 +20,7 @@ const judge = async () => {
 
   const data = await response.json();
 
-  setResult(data.department);
+  setResult(JSON.stringify(data));
 };
 
   return (
